@@ -12,21 +12,17 @@ import javax.mail.internet.AddressException;
 import Project.BuisnessLogic.AcknowledgementForInvoice;
 import Project.BuisnessLogic.Invoice;
 
-public class Database {
+public class Database implements SAASInterface {
 	Connection conn = null;
 	Statement stm = null;
-	// Statement stm1 = null;
 	ResultSet result = null;// it is used to navigate throuh the each record
-	// ResultSet result1 = null;
 
 	public void createConnection() {
 		try {
 			// loading the driver class obj
 			// Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/invoicedetails", "root", "system");
-			// System.out.println(conn);
 			stm = conn.createStatement();
-			// stm1 = conn.createStatement();// with statement object we can
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,14 +35,6 @@ public class Database {
 					+ "values(" + invoice.getInvoiceNo() + "," + "'" + invoice.getInvoiceDate() + "'" + ","
 					+ invoice.getCustomerPo() + "," + "'" + invoice.getAddress() + "'" + "," + invoice.getFinalAmount()
 					+ "," + "'" + invoice.getMail() + "'" + ")");
-			// result1 = stm1.executeQuery("select * from customer");
-			/*
-			 * while (result.next()) { System.out.print(result.getInt(1) + " ");
-			 * System.out.print(result.getString(2) + " ");
-			 * System.out.print(result.getString("info")); System.out.println();
-			 * }
-			 */
-			//System.out.println("Invoice Successfully Inserted");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,15 +43,12 @@ public class Database {
 	public void listInvoiceDetails() {
 		try {
 			result = stm.executeQuery("select * from invoice");
-			// result1 = stm1.executeQuery("select * from customer");
 			if (result.next()) {
 				System.out.println(
 						"     Invoice No|   Invoice Date|     Customer P.O.|  Ammount|    ApprovedStatus     ");
 				System.out.print(String.format("%1$14s", result.getLong(1)));
 				System.out.print(String.format("%1$16s", result.getDate(2)));
 				System.out.print(String.format("%1$18s", result.getLong(3)));
-				// System.out.println(String.format("%1$15s",
-				// result.getString(4)));
 				System.out.print(String.format("%1$11s", result.getDouble(5)));
 				System.out.print(String.format("%1$12s", ((result.getString(6).equals("1")) ? "YES" : "NO")));
 				System.out.print("\n");
@@ -96,8 +81,6 @@ public class Database {
 				System.out.print(String.format("%1$14s", result.getLong(1)));
 				System.out.print(String.format("%1$16s", result.getDate(2)));
 				System.out.print(String.format("%1$18s", result.getLong(3)));
-				// System.out.println(String.format("%1$15s",
-				// result.getString(4)));
 				System.out.print(String.format("%1$11s", result.getDouble(5)));
 				System.out.print(String.format("%1$12s", ((result.getString(6).equals("1")) ? "YES" : "NO")));
 				System.out.print("\n");
@@ -105,8 +88,7 @@ public class Database {
 					System.out.print(String.format("%1$14s", result.getLong(1)));
 					System.out.print(String.format("%1$16s", result.getDate(2)));
 					System.out.print(String.format("%1$18s", result.getLong(3)));
-					// System.out.println(String.format("%1$15s",
-					// result.getString(4)));
+
 					System.out.print(String.format("%1$11s", result.getDouble(5)));
 					System.out.print(String.format("%1$12s", ((result.getString(6).equals("1")) ? "YES" : "NO")));
 					System.out.print("\n");
@@ -161,7 +143,6 @@ public class Database {
 				ack.sendMail(emaildummy);
 				System.out.println("Approved and Email sent Successfully.");
 			}
-			// result1 = stm1.executeQuery("select * from customer");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

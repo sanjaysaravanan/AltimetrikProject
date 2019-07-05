@@ -11,21 +11,21 @@ import java.io.IOException;
 public class ReadPdf {
 	File file = null;
 
-	public ReadPdf(File doc){
+	public ReadPdf(File doc) {
 		this.file = doc;
 	}
-	public String extractText() throws IOException{
+
+	public String extractText() throws IOException {
 		String pdfFileText = "";
 		PDDocument doc = PDDocument.load(file);
-		if(!doc.isEncrypted())
-		{
+		if (!doc.isEncrypted()) {
 			PDFTextStripperByArea stripper = new PDFTextStripperByArea();
 			stripper.setSortByPosition(true);
 
 			PDFTextStripper tStripper = new PDFTextStripper();
 
 			pdfFileText = tStripper.getText(doc);
-			//System.out.println(pdfFileInText);
+			// System.out.println(pdfFileInText);
 		}
 		doc.close();
 		return pdfFileText;

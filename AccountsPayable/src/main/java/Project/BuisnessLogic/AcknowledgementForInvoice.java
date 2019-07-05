@@ -68,6 +68,6 @@ public class AcknowledgementForInvoice {
 				properties.getProperty("password"));
 		transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
 		transport.close();
-		//System.out.println("Email sent successfully.");
+		// System.out.println("Email sent successfully.");
 	}
 }

@@ -129,8 +129,8 @@ public class MailAttachmentExample {
 			ex.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		}catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
 		return from;
 	}
